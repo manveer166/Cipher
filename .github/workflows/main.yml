@@ -10,6 +10,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,23 +21,14 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: |
-          cd CipherShift
-          npm ci
+        run: npm ci
 
       - name: Build Vite project
-        run: |
-          cd CipherShift
-          npm run build
-
-      - name: Copy output to root-level folder
-        run: |
-          mkdir -p dist-root
-          cp -r CipherShift/dist/* dist-root/
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist-root
+          publish_dir: ./dist
           publish_branch: gh-pages
