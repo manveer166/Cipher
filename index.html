@@ -7,14 +7,14 @@
   <meta name="color-scheme" content="dark light" />
   <style>
     :root{
-      --bg:#0f172a;          /* slate-900 */
-      --panel:#111827;       /* gray-900 */
-      --panel-2:#0b1223;     /* darker */
-      --text:#e5e7eb;        /* gray-200 */
-      --muted:#9ca3af;       /* gray-400 */
-      --accent:#3b82f6;      /* blue-500 */
-      --accent-2:#60a5fa;    /* blue-400 */
-      --border:#1f2937;      /* gray-800 */
+      --bg:#0f172a;
+      --panel:#111827;
+      --panel-2:#0b1223;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#3b82f6;
+      --accent-2:#60a5fa;
+      --border:#1f2937;
       --btn:#1f2937;
       --btn-hover:#2a3547;
       --radius:14px;
@@ -28,7 +28,6 @@
       color:var(--text);
     }
     .wrap{max-width:1100px;margin:28px auto;padding:0 18px}
-    /* Header */
     .nav{
       display:flex;align-items:center;gap:14px;justify-content:space-between;
       padding:16px 18px;margin-bottom:22px;background:var(--panel);
@@ -49,7 +48,6 @@
     }
     .link{color:var(--accent-2);text-decoration:none}
     .coffee{font-size:13px;color:#f5d19a;text-decoration:none}
-    /* Panels */
     .card{
       background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
       padding:18px;margin-bottom:18px;
@@ -73,11 +71,61 @@
       border-color:transparent;background:linear-gradient(180deg,var(--accent),#2563eb);
       box-shadow:0 10px 18px rgba(37,99,235,.35);font-weight:600
     }
-    .muted{color:var(--muted);font-size:14px}
-    .toolbar{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
-    .mode{
-      display:flex;gap:6px;align-items:center;background:var(--panel-2);
-      border:1px solid var(--border);border-radius:999px;padding:6px 8px;font-size:14px
+    .footer{margin:18px 0;color:var(--muted);font-size:14px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <div class="lock">🔐</div>
+        <div>
+          <h1>SecretShift</h1>
+          <div class="sub">Encrypt & Decrypt your text</div>
+        </div>
+      </div>
+      <div class="right">
+        <a href="https://buymeacoffee.com/manveer" class="coffee" target="_blank">☕ Buy Me a Coffee</a>
+      </div>
+    </div>
+
+    <div class="card grid">
+      <div>
+        <label class="label">Input</label>
+        <textarea id="inputText" placeholder="Enter text to encrypt or decrypt..."></textarea>
+      </div>
+      <div>
+        <label class="label">Output</label>
+        <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
+      </div>
+    </div>
+
+    <div class="card row">
+      <button class="btn primary" onclick="encrypt()">Encrypt</button>
+      <button class="btn" onclick="decrypt()">Decrypt</button>
+    </div>
+
+    <div class="footer">
+      Built with 💙 by <a href="https://linktr.ee/sahotamanveer" class="link" target="_blank">Sahota Manveer</a>
+    </div>
+  </div>
+
+  <script>
+    function encrypt() {
+      const input = document.getElementById('inputText').value;
+      const result = btoa(input); // Base64 encoding
+      document.getElementById('outputText').value = result;
     }
-    .mode input{accent-color:var(--accent)}
-    .footer{margin:18px 0;color:var(--muted);font-size:1
+
+    function decrypt() {
+      const input = document.getElementById('inputText').value;
+      try {
+        const result = atob(input); // Base64 decoding
+        document.getElementById('outputText').value = result;
+      } catch (e) {
+        alert("⚠️ Invalid input for decryption.");
+      }
+    }
+  </script>
+</body>
+</html>
